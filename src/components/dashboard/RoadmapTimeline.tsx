@@ -1,4 +1,4 @@
-import { CheckCircle2, Circle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Phase {
@@ -18,54 +18,51 @@ const RoadmapTimeline = ({ roadmap }: RoadmapTimelineProps) => {
         Your Learning Roadmap
       </h3>
 
-      <div className="relative">
+      <div className="space-y-4">
         {roadmap.map((phase, phaseIndex) => (
           <div 
             key={phase.phase}
-            className={cn(
-              "relative pl-8 pb-8 last:pb-0 section-fade-in",
-            )}
-            style={{ opacity: 0, animationDelay: `${phaseIndex * 0.15}s` }}
+            className="section-fade-in"
+            style={{ opacity: 0, animationDelay: `${phaseIndex * 0.1}s` }}
           >
-            {/* Timeline Line */}
-            {phaseIndex < roadmap.length - 1 && (
-              <div className="absolute left-[11px] top-6 bottom-0 w-0.5 bg-border" />
-            )}
-
-            {/* Timeline Dot */}
             <div className={cn(
-              "absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center",
-              phaseIndex === 0 ? "bg-accent text-accent-foreground" : "bg-secondary text-muted-foreground"
+              "p-4 rounded-lg border transition-all hover:shadow-soft",
+              phaseIndex === 0 
+                ? "bg-accent/5 border-accent/20" 
+                : "bg-secondary/30 border-border"
             )}>
-              {phaseIndex === 0 ? (
-                <CheckCircle2 className="w-4 h-4" />
-              ) : (
-                <Circle className="w-4 h-4" />
-              )}
-            </div>
-
-            {/* Content */}
-            <div className="bg-secondary/30 rounded-lg p-4">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
-                <h4 className="font-display font-semibold text-foreground">
-                  {phase.phase}
-                </h4>
-                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary w-fit">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <span className={cn(
+                    "w-7 h-7 rounded-full flex items-center justify-center text-sm font-semibold",
+                    phaseIndex === 0 
+                      ? "bg-accent text-accent-foreground" 
+                      : "bg-primary/10 text-primary"
+                  )}>
+                    {phaseIndex + 1}
+                  </span>
+                  <h4 className="font-display font-semibold text-foreground">
+                    {phase.phase}
+                  </h4>
+                </div>
+                <span className="text-xs font-medium px-2 py-1 rounded-full bg-primary/10 text-primary">
                   {phase.duration}
                 </span>
               </div>
 
-              <ul className="space-y-2">
+              {/* Tasks as simple list */}
+              <div className="ml-10 space-y-1.5">
                 {phase.tasks.map((task, taskIndex) => (
-                  <li 
+                  <div 
                     key={taskIndex}
-                    className="flex items-start gap-2 text-sm text-muted-foreground"
+                    className="flex items-center gap-2 text-sm text-muted-foreground"
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
-                    {task}
-                  </li>
+                    <ArrowRight className="w-3 h-3 text-accent shrink-0" />
+                    <span>{task}</span>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         ))}

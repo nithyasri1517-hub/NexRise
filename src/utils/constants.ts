@@ -13,13 +13,15 @@ export const BRANCHES = [
 ];
 
 export const YEARS = [
+  "Fresher",
   "1st Year",
   "2nd Year",
   "3rd Year",
   "4th Year",
   "Graduate",
   "Post Graduate",
-  "Working Professional"
+  "Working Professional",
+  "Other"
 ];
 
 export const GOAL_SUGGESTIONS = [
